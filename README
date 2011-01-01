@@ -1,16 +1,20 @@
-Term-Menu-Hierarchical version 0.01
+Term-Menu-Hierarchical version 0.02
 ===================================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
+DESCRIPTION
 
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+Term::Menu::Hierarchical is a basic but hopefully broadly useful
+hierarchical menu generator. Feed it a hashref of whatever size and depth,
+and it'll display a menu with a nice console UI. The keys (or labels, if
+you prefer to think that way) are used as the menu entries; once you've
+followed the menu to the end of the chain (i.e., a value), that value will
+be displayed in a pure-Perl pager that does not require any system
+binaries.
+
+The author finds it very useful for creating structured output for textual
+data - usually as the "output section" following a parser that converts raw
+data into a hashref. Think of it as a human-readable, interactive
+Data::Dumper for text.
 
 INSTALLATION
 
@@ -25,9 +29,9 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-	POSIX			# Core module; already installed
-	Term::Cap		# Ditto
-	Term::ReadKey	# Available at CPAN
+	POSIX           # Core module; already installed
+	Term::Cap       # Ditto
+	Term::ReadKey   # Available at CPAN
 
 
 COPYRIGHT AND LICENCE

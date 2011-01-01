@@ -32,7 +32,8 @@ tie(my %data, 'Tie::IxHash',
 					'Milk Shake'	=>	'Comfort food!'
 			}
 		}
-	}
+	},
+	List			=>	join "\n", map { $a++ } 1 .. 80,	# Paging test
 );
 
 menu(\%data);

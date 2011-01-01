@@ -4,3 +4,9 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 	- original version; created by h2xs 1.23 with options
 		-AX Term::Menu::Hierarchical
 
+0.02  Sat Jan  1 02:46:00 2011
+    - Major cleanup/revision
+		- Rewrote the pager from scratch (much more solid, better UI)
+		- Separated all the subs
+		- Cleaned up the logic
+		- Cleaned up minor-but-annoying scoping issues

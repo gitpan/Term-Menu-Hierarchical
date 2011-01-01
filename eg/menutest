@@ -2,13 +2,15 @@
 # Created by Ben Okopnik on Tue Jun  8 22:47:05 EDT 2010
 use warnings;
 use strict;
-use Term::Menu::Hierarchical;
+# use Term::Menu::Hierarchical;
+use Hierarchical;
 use Tie::IxHash;	# Keep the top-level menu items in order
 
+my $a = 0;
 # my %data = (
 tie(my %data, 'Tie::IxHash', 
 	Breakfast => {
-		'Milk + Cereal'	=> 'A good start!',
+		'Milk + Cereal'	=> undef,
 		'Eggs Benedict'	=> 'Classic hangover fix.',
 		'French Toast'	=> 'Nice and easy for beginners.'
 	},
@@ -33,7 +35,7 @@ tie(my %data, 'Tie::IxHash',
 			}
 		}
 	},
-	List			=>	join "\n", map { $a++ } 1 .. 80,	# Paging test
+	NumList	=>	join "\n", map { $a++ } 1..150
 );
 
 menu(\%data);

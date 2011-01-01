@@ -10,3 +10,7 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 		- Separated all the subs
 		- Cleaned up the logic
 		- Cleaned up minor-but-annoying scoping issues
+
+0.03  Sat Jan  1 13:49:02 2011
+    - Added long line handling
+	- The output is now explicitly declared to be UTF-8

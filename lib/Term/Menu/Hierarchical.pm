@@ -5,19 +5,20 @@ use POSIX;
 use Term::Cap;
 use Term::ReadKey;
 require Exporter;
+binmode STDOUT, ":utf8";
 $|++;
 
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
 $ti->getattr;
 my $t = Term::Cap->Tgetent({ TERM => undef, OSPEED => $ti->getospeed||38400 });
 $t->Trequire(qw/ce cl/);
-my($max_width, $max_height) = GetTerminalSize "STDOUT";
+my($max_width, $max_height);
 
 ########################################################################################
 
@@ -32,6 +33,8 @@ sub menu {
    		unless ref($all) eq 'HASH';
 
 	{
+		# Refresh size info to catch term resize events
+		($max_width, $max_height) = GetTerminalSize "STDOUT";
 		$t->Tputs("cl", 1, *STDOUT);
 		if (ref($data->{content}) eq 'HASH'){
 			$data = _display($data);
@@ -56,7 +59,19 @@ sub _more {
   	my $prompt = ' [ <space|Enter>=page down  <b>=back  <q>=quit ]   ';
 	{
 		$t->Tputs("cl", 1, *STDOUT);
-		print join "\n", @{$pages[$pos]}, '';
+		# print join "\n", @{$pages[$pos]}, '';
+		for (@{$pages[$pos]}){
+			# (Crude) long line handling. You should format your data...
+			if (length($_) > $max_width){
+				print substr($_, 0, $max_width - 1);
+				$t->Tputs("so", 1, *STDOUT);
+				print ">\n";
+				$t->Tputs("se", 1, *STDOUT);
+			}
+			else {
+				print "$_\n";
+			}
+		}
 
 		$t->Tputs("so", 1, *STDOUT);
 		$t->Tputs("md", 1, *STDOUT);
@@ -228,12 +243,12 @@ Term::Menu::Hierarchical - Perl extension for creating hierarchical menus
 This module only exports a single method, 'menu', which takes an arbitrary-depth hashref as an argument. The keys at
 every level are used as menu entries; the values, whenever they're reached via the menu, are displayed in a pager.
 Many text files (e.g., recipe lists, phone books, etc.) are easily parsed and the result structured as a hashref; this
-module makes displaying this kind of content into a simple, self-contained process.
+module makes displaying that kind of content into a simple, self-contained process.
  
 The module itself is pure Perl and has no system dependencies; however, terminal handling always involves a pact with
 the Devil and arcane rituals involving chicken entrails and moon-lit oak groves. Users are explicitly warned to beware.
 
-Reports of any discovered bugs as well as results of tests on OSes other than Linux are always eagerly welcomed.
+Bug reports as well as results of tests on OSes other than Linux are always eagerly welcomed.
  
 Features:
   
@@ -250,7 +265,7 @@ Features:
 =head2 EXPORT
   
  menu
-    Takes a single argument, a hashref of arbitrary depth. See the included test scripts for further usage examples.
+    Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
   
 =head1 SEE ALSO
 

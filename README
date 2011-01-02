@@ -11,10 +11,10 @@ followed the menu to the end of the chain (i.e., a value), that value will
 be displayed in a pure-Perl pager that does not require any system
 binaries.
 
-The author finds it very useful for creating structured output for textual
-data - usually as the "output section" following a parser that converts raw
-data into a hashref. Think of it as a human-readable, interactive
-Data::Dumper for text.
+I find it very useful for looking at textual data as a structure, so I
+usually use it as the "output section", right after a parser that converts
+the raw data to keys and values. You can think of it as a human-readable,
+interactive Data::Dumper for text.
 
 INSTALLATION
 

@@ -3,7 +3,7 @@
 use warnings;
 use strict;
 # use Term::Menu::Hierarchical;
-use Hierarchical;
+use Term::Menu::Hierarchical;
 use Tie::IxHash;	# Keep the top-level menu items in order
 
 my $a = 0;

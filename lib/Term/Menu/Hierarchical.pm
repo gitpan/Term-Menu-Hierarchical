@@ -52,14 +52,16 @@ sub menu {
 
 sub _more {
 	return unless my @txt = split /\n/, shift;
-	push @txt, '~' for 3 .. ($max_height - @txt % ($max_height - 2));
+	# Fill @txt so we have full 'pages'
+	if (@txt % ($max_height - 2)){
+		push @txt, '~' for 3 .. ($max_height - @txt % ($max_height - 2));
+	}
 	my ($pos, @pages) = 0;
 	push @pages, [ splice @txt, 0, ($max_height - 2) ] while @txt;
 
   	my $prompt = ' [ <space|Enter>=page down  <b>=back  <q>=quit ]   ';
 	{
 		$t->Tputs("cl", 1, *STDOUT);
-		# print join "\n", @{$pages[$pos]}, '';
 		for (@{$pages[$pos]}){
 			# (Crude) long line handling. You should format your data...
 			if (length($_) > $max_width){
@@ -114,7 +116,7 @@ sub _display {
 	my $items_per_line = int($max_width/$span_width) < $num_items ?
 		int($max_width/$span_width) : $num_items;
 	# Figure out total width for printing; '-1' adjusts for box corners
-	my $width = $items_per_line * ($span_width) - 1;
+	my $width = $items_per_line * $span_width - 1;
 
 	# Display the menu, get the answer, and validate it
 	my($answer, %list);
@@ -152,7 +154,6 @@ sub _display {
 	}
 	return $retval;
 }
-
 
 ########################################################################################
 
@@ -260,13 +261,39 @@ Features:
  * Somewhat basic but serviceable pure-Perl pager
  * Extensively tested with several versions of Linux
   
-=end text 
+=end text
+
+For those who want to display data beyond plain old ASCII, Term::Menu::Hierarchical expects UTF8-encoded text. Please
+don't disappoint it, and it won't (shouldn't) disappoint you. Perhaps the most common/easiest solution (assuming that
+your data is already UTF8-encoded) is to push the ':utf8' PerlIO layer onto the filehandle you want to read from:
+ 
+=over
+ 
+open my $fh, '<:utf8', $filename or die ...
+  
+=back
+ 
+Or, for filehandles that are already open, just use 'binmode':
+ 
+=over
+ 
+binmode $fh, ':utf8';
+  
+=back
+ 
+For a full treatment of the topic, see C<perldoc perlunicode>.
+
  
 =head2 EXPORT
   
- menu
+menu
+
+=over
+
     Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
   
+=back
+
 =head1 SEE ALSO
 
 Term::Cap, Term::ReadKey, perl

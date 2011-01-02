@@ -5,6 +5,7 @@ use POSIX;
 use Term::Cap;
 use Term::ReadKey;
 require Exporter;
+require 5.007_001;
 binmode STDOUT, ":utf8";
 $|++;
 

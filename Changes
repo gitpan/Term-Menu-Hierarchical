@@ -17,3 +17,7 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 
 0.10  Sat Jan  1 20:05:12 2011
     - Simplified page fill method
+
+0.20  Sat Jan  1 23:55:21 2011
+    - Added a 'require 5.007_001' (earlier Perl versions don't support
+      PerlIO layers)

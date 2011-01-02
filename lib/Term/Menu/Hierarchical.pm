@@ -1,4 +1,4 @@
-package Hierarchical;
+package Term::Menu::Hierarchical;
 use strict;
 use warnings;
 use POSIX;

@@ -21,3 +21,6 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 0.20  Sat Jan  1 23:55:21 2011
     - Added a 'require 5.007_001' (earlier Perl versions don't support
       PerlIO layers)
+
+0.50  Sun Jan  2 01:41:58 2011
+    - Fixed namespace problem

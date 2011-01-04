@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.60';
+our $VERSION = '0.70';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
@@ -196,7 +196,7 @@ Term::Menu::Hierarchical - Perl extension for creating hierarchical menus
 				'Chickpea Curry'    =>  'Great Indian dish!',
 				'Desserts'          =>  {
 					'Almond Tofu'   =>  'Somewhat odd but good',
-					'Milk Shake'    =>  'Comfort food!'
+					'Soymilk Shake' =>  'Just like Mama used to make!'
 				}
 			}
 		}
@@ -230,13 +230,12 @@ Term::Menu::Hierarchical - Perl extension for creating hierarchical menus
 	menu(\%data);
   
 
- Output:
-
- .--------------------------------------------.
- | 1) Breakfast | 2) Lunch     | 3) Dinner    |
- '--------------------------------------------'
- Item number (1-3, 0 to restart, 'q' to quit)? 
   
+	### Here's a cool way to browse a database table:
+
+	my $dbh = DBI->connect("DBI:mysql:geodata", 'user', 'password');
+	menu($dbh->selectall_hashref('SELECT * FROM places LIMIT 100', 'placeName'));
+
  
 =end text
 
@@ -264,9 +263,9 @@ Features:
   
 =end text
 
-For those who want to display data beyond plain old ASCII, Term::Menu::Hierarchical expects UTF8-encoded text. Please
-don't disappoint it, and it won't (shouldn't) disappoint you. Perhaps the most common/easiest solution (assuming that
-your data is already UTF8-encoded) is to push the ':utf8' PerlIO layer onto the filehandle you want to read from:
+For those who want to display data beyond plain old ASCII: this module expects UTF8-encoded text. Please don't
+disappoint it, and it won't (shouldn't) disappoint you. Perhaps the most common/easiest solution (assuming that your
+data is already UTF8-encoded) is to push the ':utf8' PerlIO layer onto the filehandle you want to read from:
  
 =over
  

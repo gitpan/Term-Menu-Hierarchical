@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.75';
+our $VERSION = '0.80';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
@@ -24,10 +24,6 @@ my($max_width, $max_height);
 ########################################################################################
 
 sub menu {
-	# if ($^O =~ /^(?:MSWin|VMS|dos|MacOS|os2|epoc|cygwin)/i){
-	# 	# If I ever get hold of a MacOS or a Windows box, I'll try to make it work there, too.
-	# 	die "Sorry, only Unix OSes are supported for now.\n";
-	# }
 
 	my ($all, $data) = shift;
 	die "The argument must be a hashref (arbitrary depth); exiting.\n"
@@ -175,33 +171,91 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
 
   To generate a menu series that looks like this:
 
+=begin html
+
+<pre>
   .--------------------------------------------.
   | 1) Breakfast | 2) Dinner    | 3) Lunch     |
   '--------------------------------------------'
   Item number (1-3, 0 to restart, 'q' to quit)? 2
   
-      +++++++[New page]++++++++++++++++++++++++++++++
-  
-      .-------------------------------.
+  +++++++++++[New page]++++++++++++++++++++++++++++++
+
+</pre>
+
+=end html
+
+=begin html
+
+<pre>
+  .-------------------------------.
   | 1) Vegetarian | 2) Meat       |
   '-------------------------------'
   Item number (1-2, 0 to restart, 'q' to quit)? 1
   
-      +++++++[New page]++++++++++++++++++++++++++++++
+  +++++++++++[New page]++++++++++++++++++++++++++++++
   
-      .-------------------------------------------------------------------------------------------.
+</pre>
+
+=end html
+
+=begin html
+
+<pre>
+  .-------------------------------------------------------------------------------------------.
   | 1) Asian Eggplant    | 2) Desserts          | 3) Chickpea Curry    | 4) Broccoli and Rice |
   '-------------------------------------------------------------------------------------------'
   Item number (1-4, 0 to restart, 'q' to quit)? 2
   
-      +++++++[New page]++++++++++++++++++++++++++++++
+  +++++++++++[New page]++++++++++++++++++++++++++++++
   
-      .---------------------------------.
+</pre>
+
+=end html
+
+=begin html
+
+<pre>
+  .---------------------------------.
   | 1) Milk Shake  | 2) Almond Tofu |
   '---------------------------------'
   Item number (1-2, 0 to restart, 'q' to quit)? 
+</pre>
+
+=end html
+
+=begin text
+
+  .--------------------------------------------.
+  | 1) Breakfast | 2) Dinner    | 3) Lunch     |
+  '--------------------------------------------'
+  Item number (1-3, 0 to restart, 'q' to quit)? 2
   
+  +++++++++++[New page]++++++++++++++++++++++++++++++
   
+  .-------------------------------.
+  | 1) Vegetarian | 2) Meat       |
+  '-------------------------------'
+  Item number (1-2, 0 to restart, 'q' to quit)? 1
+  
+  +++++++++++[New page]++++++++++++++++++++++++++++++
+  
+  .-------------------------------------------------------------------------------------------.
+  | 1) Asian Eggplant    | 2) Desserts          | 3) Chickpea Curry    | 4) Broccoli and Rice |
+  '-------------------------------------------------------------------------------------------'
+  Item number (1-4, 0 to restart, 'q' to quit)? 2
+  
+  +++++++++++[New page]++++++++++++++++++++++++++++++
+  
+  .---------------------------------.
+  | 1) Milk Shake  | 2) Almond Tofu |
+  '---------------------------------'
+  Item number (1-2, 0 to restart, 'q' to quit)? 
+
+=end text
+  
+---------------------------------------- 
+
   do this:
 
 =over
@@ -255,7 +309,7 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
 		'French Toast'  => 'Nice and easy for beginners.'
 	},
 	[ ... ]
-	);
+ );
 
  menu(\%data);
 

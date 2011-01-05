@@ -34,3 +34,8 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 0.75  Tue Jan  4 19:44:25 EST 2011
     - Major documentation rewrite
 	- Split tests so that the OS test happens first
+
+0.80  Wed Jan  5 00:32:34 EST 2011
+    - Made the 'rec' script UTF8-clean
+	- Added an external Perl version test
+	- Fixed the docs so the HTML would display correctly

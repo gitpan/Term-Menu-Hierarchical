@@ -3,6 +3,7 @@ Makefile.PL
 MANIFEST
 README
 t/OS_test.t
+t/Perl_version.t
 t/Term-Menu-Hierarchical.t
 lib/Term/Menu/Hierarchical.pm
 eg/menutest

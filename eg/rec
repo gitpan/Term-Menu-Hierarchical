@@ -3,6 +3,7 @@
 use warnings;
 use strict;
 use Term::Menu::Hierarchical;
+binmode(DATA, ':utf8');
 
 die "Syntax: ", $0 =~ /([^\/]+)$/, " [search_string]\n"
 	if @ARGV && $ARGV[0] =~ /^(:?-h|--help)$/;

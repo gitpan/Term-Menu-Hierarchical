@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.70';
+our $VERSION = '0.75';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
@@ -167,77 +167,108 @@ __END__
 Term::Menu::Hierarchical - Perl extension for creating hierarchical menus
  
 =head1 SYNOPSIS
- 
-=begin text
 
-	### Create an arbitrary-depth menu
-	use Term::Menu::Hierarchical;
-   
-	my %data = (
-		Breakfast => {
-			'Milk + Cereal' => 'A good start!',
-			'Eggs Benedict' => 'Classic hangover fix.',
-			'French Toast'  => 'Nice and easy for beginners.'
-		},
-		Lunch   =>  {
-			'Mushroomwiches'=> 'A new take on an old favorite.',
-			'Sloppy Janes'  => 'Yummy and filling.',
-			'Corn Dogs'     => 'Traditional American fare.'
-		},
-		Dinner  =>  {
-			Meat        =>  {
-				'Chicken Picadillo' =>  'Mmm-hmm!',
-				'Beef Stroganoff'   =>  'Is good Russian food!',
-				'Turkey Paella'     =>  'Home-made goodness.'
-			},
-			Vegetarian  => {
-				'Asian Eggplant'    =>  'Tasty.',
-				'Broccoli and Rice' =>  'Fun.',
-				'Chickpea Curry'    =>  'Great Indian dish!',
-				'Desserts'          =>  {
-					'Almond Tofu'   =>  'Somewhat odd but good',
-					'Soymilk Shake' =>  'Just like Mama used to make!'
-				}
-			}
-		}
-	 );
-	 
-	 menu(\%data);
-   
+This Perl extension lets you easily create hierarchical menus. Just build a hashref representing the hierarchy and use
+it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take care of all the rest.
+
+=head1 ABSTRACT
+
+  To generate a menu series that looks like this:
+
+  .--------------------------------------------.
+  | 1) Breakfast | 2) Dinner    | 3) Lunch     |
+  '--------------------------------------------'
+  Item number (1-3, 0 to restart, 'q' to quit)? 2
   
- The top-level menu for the above input looks like this:
+      +++++++[New page]++++++++++++++++++++++++++++++
   
- .--------------------------------------------.
- | 1) Breakfast | 2) Dinner    | 3) Lunch     |
- '--------------------------------------------'
- Item number (1-3, 0 to restart, 'q' to quit)? 
+      .-------------------------------.
+  | 1) Vegetarian | 2) Meat       |
+  '-------------------------------'
+  Item number (1-2, 0 to restart, 'q' to quit)? 1
+  
+      +++++++[New page]++++++++++++++++++++++++++++++
+  
+      .-------------------------------------------------------------------------------------------.
+  | 1) Asian Eggplant    | 2) Desserts          | 3) Chickpea Curry    | 4) Broccoli and Rice |
+  '-------------------------------------------------------------------------------------------'
+  Item number (1-4, 0 to restart, 'q' to quit)? 2
+  
+      +++++++[New page]++++++++++++++++++++++++++++++
+  
+      .---------------------------------.
+  | 1) Milk Shake  | 2) Almond Tofu |
+  '---------------------------------'
+  Item number (1-2, 0 to restart, 'q' to quit)? 
   
   
-	### What about keeping the top-level menu in order?
+  do this:
+
+=over
+
+ use Term::Menu::Hierarchical;
+
+ my %data = (
+ 	Breakfast => {
+ 		'Milk + Cereal' => 'A good start!',
+ 		'Eggs Benedict' => 'Classic hangover fix.',
+ 		'French Toast'  => 'Nice and easy for beginners.'
+ 	},
+ 	Lunch   =>  {
+ 		'Mushroomwiches'=> 'A new take on an old favorite.',
+ 		'Sloppy Janes'  => 'Yummy and filling.',
+ 		'Corn Dogs'     => 'Traditional American fare.'
+ 	},
+ 	Dinner  =>  {
+ 		Meat        =>  {
+ 			'Chicken Picadillo' =>  'Mmm-hmm!',
+ 			'Beef Stroganoff'   =>  'Is good Russian food!',
+ 			'Turkey Paella'     =>  'Home-made goodness.'
+ 		},
+ 		Vegetarian  => {
+ 			'Asian Eggplant'    =>  'Tasty.',
+ 			'Broccoli and Rice' =>  'Fun.',
+ 			'Chickpea Curry'    =>  'Great Indian dish!',
+ 			'Desserts'          =>  {
+ 				'Almond Tofu'   =>  'Somewhat odd but good',
+ 				'Soymilk Shake' =>  'Just like Mama used to make!'
+ 			}
+ 		}
+ 	}
+ );
  
-	use Term::Menu::Hierarchical;
-	use Tie::IxHash;
-	
-	tie(my %data, 'Tie::IxHash',  
-		Breakfast => {
-			'Milk + Cereal' => 'A good start!',
-			'Eggs Benedict' => 'Classic hangover fix.',
-			'French Toast'  => 'Nice and easy for beginners.'
-		},
-		[ ... ]
+         menu(\%data);
+
+=back
+
+### What about keeping the top-level menu in order?
+
+=over
+
+ use Term::Menu::Hierarchical;
+ use Tie::IxHash;
+ 
+	 tie(my %data, 'Tie::IxHash',  
+	Breakfast => {
+		'Milk + Cereal' => 'A good start!',
+		'Eggs Benedict' => 'Classic hangover fix.',
+		'French Toast'  => 'Nice and easy for beginners.'
+	},
+	[ ... ]
 	);
-	
-	menu(\%data);
-  
 
-  
-	### Here's a cool way to browse a database table:
+ menu(\%data);
 
-	my $dbh = DBI->connect("DBI:mysql:geodata", 'user', 'password');
-	menu($dbh->selectall_hashref('SELECT * FROM places LIMIT 100', 'placeName'));
+=back
 
- 
-=end text
+### How about a simple way to browse a database table?
+
+=over
+
+ my $dbh = DBI->connect("DBI:mysql:geodata", 'user', 'password');
+ menu($dbh->selectall_hashref('SELECT * FROM places LIMIT 100', 'placeName'));
+
+=back
 
 =head1 DESCRIPTION
  
@@ -286,13 +317,9 @@ For a full treatment of the topic, see C<perldoc perlunicode>.
  
 =head2 EXPORT
   
-menu
-
-=over
+  menu
 
     Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
-  
-=back
 
 =head1 SEE ALSO
 

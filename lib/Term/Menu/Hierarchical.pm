@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.80';
+our $VERSION = '0.85';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
@@ -169,7 +169,7 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
 
 =head1 ABSTRACT
 
-  To generate a menu series that looks like this:
+To generate a menu series that looks like this:
 
 =begin html
 
@@ -178,9 +178,6 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
   | 1) Breakfast | 2) Dinner    | 3) Lunch     |
   '--------------------------------------------'
   Item number (1-3, 0 to restart, 'q' to quit)? 2
-  
-  +++++++++++[New page]++++++++++++++++++++++++++++++
-
 </pre>
 
 =end html
@@ -192,9 +189,6 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
   | 1) Vegetarian | 2) Meat       |
   '-------------------------------'
   Item number (1-2, 0 to restart, 'q' to quit)? 1
-  
-  +++++++++++[New page]++++++++++++++++++++++++++++++
-  
 </pre>
 
 =end html
@@ -206,9 +200,6 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
   | 1) Asian Eggplant    | 2) Desserts          | 3) Chickpea Curry    | 4) Broccoli and Rice |
   '-------------------------------------------------------------------------------------------'
   Item number (1-4, 0 to restart, 'q' to quit)? 2
-  
-  +++++++++++[New page]++++++++++++++++++++++++++++++
-  
 </pre>
 
 =end html
@@ -252,11 +243,12 @@ it as an argument to the 'menu' function, and Term::Menu::Hierarchical will take
   '---------------------------------'
   Item number (1-2, 0 to restart, 'q' to quit)? 
 
-=end text
-  
----------------------------------------- 
 
-  do this:
+=end text
+
+. 
+
+do this:
 
 =over
 
@@ -370,10 +362,11 @@ For a full treatment of the topic, see C<perldoc perlunicode>.
 
  
 =head2 EXPORT
-  
-  menu
+.
 
-    Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
+ menu
+
+ Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
 
 =head1 SEE ALSO
 

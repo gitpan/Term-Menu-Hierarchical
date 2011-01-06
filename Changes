@@ -39,3 +39,7 @@ Revision history for Perl extension Term::Menu::Hierarchical.
     - Made the 'rec' script UTF8-clean
 	- Added an external Perl version test
 	- Fixed the docs so the HTML would display correctly
+
+0.85  Wed Jan  5 22:16:44 EST 2011
+	- More HTML documentation fixups
+	- Clearer message on version failure

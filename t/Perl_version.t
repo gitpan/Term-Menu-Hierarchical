@@ -1,5 +1,4 @@
 use Test::More tests => 1;
 
 # I'd rather fail now than at module load time
-ok($^V ge 'v5.7.1')
-	or BAIL_OUT("Perl version 5.7.1 or higher required; your version ($^V) is insufficient.");
+ok($] >= 5.007001) or BAIL_OUT("Perl version must be >= 5.7.1");

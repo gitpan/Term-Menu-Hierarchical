@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.85';
+our $VERSION = '0.90';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();
@@ -283,7 +283,7 @@ do this:
  	}
  );
  
-         menu(\%data);
+	menu(\%data);
 
 =back
 
@@ -326,11 +326,9 @@ module makes displaying that kind of content into a simple, self-contained proce
 The module itself is pure Perl and has no system dependencies; however, terminal handling always involves a pact with
 the Devil and arcane rituals involving chicken entrails and moon-lit oak groves. Users are explicitly warned to beware.
 
-Bug reports as well as results of tests on OSes other than Linux are always eagerly welcomed.
+Bug reports are always eagerly welcomed.
  
-Features:
-  
-=begin text
+=head1 FEATURES
   
  * No limit on hashref depth
  * Self-adjusts to terminal width and height
@@ -338,8 +336,6 @@ Features:
  * Somewhat basic but serviceable pure-Perl pager
  * Extensively tested with several versions of Linux
   
-=end text
-
 For those who want to display data beyond plain old ASCII: this module expects UTF8-encoded text. Please don't
 disappoint it, and it won't (shouldn't) disappoint you. Perhaps the most common/easiest solution (assuming that your
 data is already UTF8-encoded) is to push the ':utf8' PerlIO layer onto the filehandle you want to read from:
@@ -354,7 +350,7 @@ Or, for filehandles that are already open, just use 'binmode':
  
 =over
  
-binmode $fh, ':utf8';
+binmode DATA, ':utf8';
   
 =back
  
@@ -362,11 +358,12 @@ For a full treatment of the topic, see C<perldoc perlunicode>.
 
  
 =head2 EXPORT
+
 .
 
- menu
+menu
 
- Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
+Takes a single argument, a hashref of arbitrary depth. See the included test scripts for usage examples.
 
 =head1 SEE ALSO
 

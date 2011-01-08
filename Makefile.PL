@@ -4,7 +4,9 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME              => 'Term::Menu::Hierarchical',
     VERSION_FROM      => 'lib/Term/Menu/Hierarchical.pm', # finds $VERSION
+	MIN_PERL_VERSION  => '5.007001', # Minimum Perl version
     PREREQ_PM         => { Term::ReadKey => '2.30' }, # e.g., Module::Name => 1.1
+	LICENSE           => 'perl',
     ($] >= 5.005 ?     ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM  => 'lib/Term/Menu/Hierarchical.pm', # retrieve abstract from module
        AUTHOR         => 'Ben Okopnik <ben@okopnik.com>') : ()),

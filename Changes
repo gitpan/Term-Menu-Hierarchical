@@ -48,3 +48,9 @@ Revision history for Perl extension Term::Menu::Hierarchical.
 	- Even more HTML tweakage ('pod2html' output is *not* the same as what CPAN shows!)
 	- BIG_FAIL: Turns out "$^V" fails in ok() tests! Dropping back to "$]" for version testing
 
+0.95  Fri Jan  7 22:25:09 EST 2011
+	- Moved the version check into Makefile.PL (removed t/Perl_version.t)
+	- Moved the scripts into 'scripts/' rather than 'eg/'
+	- Added 'LICENSE' line to Makefile.PL
+	- Using 'make dist', so now we have a META.yml
+

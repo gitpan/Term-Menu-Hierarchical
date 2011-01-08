@@ -12,7 +12,7 @@ $|++;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(menu);
 
-our $VERSION = '0.90';
+our $VERSION = '0.95';
 
 # Set up the terminal handling
 my $ti = POSIX::Termios->new();

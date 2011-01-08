@@ -3,8 +3,8 @@ Makefile.PL
 MANIFEST
 README
 t/OS_test.t
-t/Perl_version.t
 t/Term-Menu-Hierarchical.t
 lib/Term/Menu/Hierarchical.pm
-eg/menutest
-eg/rec
+scripts/menutest
+scripts/rec
+META.yml                                 Module meta-data (added by MakeMaker)
